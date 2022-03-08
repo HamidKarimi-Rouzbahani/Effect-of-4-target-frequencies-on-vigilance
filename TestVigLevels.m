@@ -1,6 +1,6 @@
 function TestVigLevels(Subj)
 % Screen('Preference', 'SkipSyncTests',1);
-% developed by Hamid Karimi-Rouzbahani on 7/March/2022
+%developed by Hamid Karimi-Rouzbahani on 7/March/2022
 commandwindow;
 rng('default')
 if ~IsOctave
@@ -35,10 +35,10 @@ SaveMovie=0; % wether to save the screen as a movie (1) or not (0)
 
 % Task parameters
 Trials_per_block=32; % number of trials/dots shown from each side of the screen
-proportion_of_events=0.5; % what proportion of dots are events? (they do not follow trajectory)
 percentage_target_cond=[0.5 0.24 0.12 0.06]; % Frequency of targets across conditions
 % the length of this vector also determines how many (target frequency)
 % conditions you will have
+proportion_of_events=0.5; % You do not need to change this
 Blocks_per_condition=10; % Number of blocks per target frequency condition
 
 % Stimulus appearance parameters
@@ -240,7 +240,7 @@ try
         if Cued_color_in_block(Subj,Block_Num)==1
             target_color='RED';
             block_target_color=1;
-            if Block_Num~=(Blocks_per_condition/2)+1
+            if Block_Num~=(Blocks_per_condition)+1
                 message = ['\n\n\n\n\n ---  Respond to ',target_color, ' dots  ---\n\n\n\n\n Press the button to start !!! \n\n\n\n\n'];
                 DrawFormattedText(wpoint, message,'center','center',first_dot_colour);
             else
@@ -252,7 +252,7 @@ try
         else
             target_color='BLUE';
             block_target_color=0;
-            if Block_Num~=(Blocks_per_condition/2)+1
+            if Block_Num~=(Blocks_per_condition)+1
                 message = ['\n\n\n\n\n ---  Respond to ',target_color, ' dots  ---\n\n\n\n\n Press the button to start !!! \n\n\n\n\n'];
                 DrawFormattedText(wpoint, message,'center','center',second_dot_colour);
             else

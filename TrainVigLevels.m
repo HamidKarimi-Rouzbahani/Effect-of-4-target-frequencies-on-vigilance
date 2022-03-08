@@ -1,6 +1,6 @@
 function TrainVigLevels(Subj)
 % Screen('Preference', 'SkipSyncTests',1);
-% developed by Hamid Karimi-Rouzbahani on 7/March/2022
+%developed by Hamid Karimi-Rouzbahani on 7/March/2022
 commandwindow;
 rng('default')
 if ~IsOctave
@@ -35,10 +35,10 @@ SaveMovie=0; % wether to save the screen as a movie (1) or not (0)
 
 % Task parameters
 Trials_per_block=32; % number of trials/dots shown from each side of the screen
-proportion_of_events=0.5; % what proportion of dots are events? (they do not follow trajectory)
 percentage_target_cond=[0.5]; % Frequency of targets across conditions
 % the length of this vector also determines how many (target frequency)
 % conditions you will have: 0.5 only for training
+proportion_of_events=0.5; % You do not need to change this
 Blocks_per_condition=2; % Number of blocks per target frequency condition; 1=for training
 
 % Stimulus appearance parameters
@@ -223,7 +223,7 @@ try
             
             % Instructions
             Screen('TextSize',wpoint, 22);
-            str=sprintf(['...  Main experiment  ...']);
+            str=sprintf(['...  Practice  ...']);
             message = [str '\n\n\n\n ... STOP the dots hitting the static object  ...'...
                 '\n\n\n\n ... the dots usually follow their trajectories ...'...
                 '\n\n\n\n ... press the button WHEN they do not !!!  ...'...
