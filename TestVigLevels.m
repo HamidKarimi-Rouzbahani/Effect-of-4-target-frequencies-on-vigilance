@@ -1,6 +1,6 @@
 function TestVigLevels(Subj)
 % Screen('Preference', 'SkipSyncTests',1);
-%developed by Hamid Karimi-Rouzbahani on 7/March/2022
+% developed by Hamid Karimi-Rouzbahani on 8/March/2022
 commandwindow;
 rng('default')
 if ~IsOctave
@@ -8,7 +8,7 @@ if ~IsOctave
 else
     more off;
 end
-%% General parameters
+% General parameters
 % Eye-tracker, MEG and Screen parameters
 Eye_tracking=0; % 1= collect eye-tracking data; 0= no eye-tracking data
 photodiode= 0; % 1= photodiode trigger appears; 0= photodiode trigger does not appear
