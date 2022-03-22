@@ -1,5 +1,5 @@
 function TestVigLevels(Subj)
-% Screen('Preference', 'SkipSyncTests',1);
+Screen('Preference', 'SkipSyncTests',1);
 % developed by Hamid Karimi-Rouzbahani on 8/March/2022
 commandwindow;
 rng('default')
@@ -22,6 +22,7 @@ testing_screen_size=[]; % in pixels or [] for the whole screen
 refresh_rate=60; % All the following timing paramteres are calcaulted relative to refresh rate e.g.,
 % when refresh rate is set to 60 Hz, 30 means 0.5 second
 trial_length=200; % length of a single dot movement on the screen
+Trials_per_block=32; % number of trials/dots shown from each side of the screen
 distance_between_dots_limit=round(trial_length./10);
 distance_between_events_limit=randsample([fix(trial_length./6) fix(trial_length./5)],1);
 refractory_time=30; % time between button presses which is excluded to avoid spuruous button presses
@@ -30,11 +31,15 @@ fading_time=20; % time it takes for the stimulus to fade
 Break_time=2; % time interval at the end of block
 non_target_time_gap_constant=0.2494; % time between non-target dots
 
-
-SaveMovie=0; % wether to save the screen as a movie (1) or not (0)
+% saving vidoe and audio
+SaveMovie=0; % whether to save the screen as a movie (1) or not (0)
+SaveAudio=1; % whether to save audio file during each block (1) or not (0)
+Fs=44100; % sound sampling freq
+Audio_quality=16; % 8, 16, or 24
+Mono_Stereo=2;  % mono=1; sterio =2
+length_of_recording=(Trials_per_block+1)*trial_length/60; % length of recording in block
 
 % Task parameters
-Trials_per_block=32; % number of trials/dots shown from each side of the screen
 percentage_target_cond=[0.5 0.24 0.12 0.06]; % Frequency of targets across conditions
 % the length of this vector also determines how many (target frequency)
 % conditions you will have
@@ -205,7 +210,7 @@ try
     for Block_Num=1:Num_of_conditions*Blocks_per_condition
         percentage_target=percentage_target_cond(1,Block_condition(Subj,Block_Num));
         Condition_string=['Freq_',sprintf('%.2f', percentage_target)];
-        
+               
         if Block_Num==1
             background_colour=0;
             [wpoint, wRect]=Screen('OpenWindow',screenNumber,background_colour,testing_screen_size);
@@ -632,6 +637,13 @@ try
         if MEG; io64(p.ioObj,p.address,p.triggernums(1,5)-128); trigger_on = GetSecs; end           % MEG trigger on
         if MEG; WaitSecs(p.trigger_duration-(GetSecs-trigger_on)); io64(p.ioObj,p.address,0); end   % MEG trigger off
         
+        if SaveAudio==1
+            Voice = audiorecorder(Fs, Audio_quality, Mono_Stereo);
+            Voice.StartFcn = 'disp(''Start speaking.'')';
+            Voice.StopFcn = 'disp(''End of recording.'')';
+            record(Voice,length_of_recording);
+        end
+        
         for main_counter=1:trial_length*(Trials_per_block+1)
             
             [~,~,keycode,~] = KbCheck();
@@ -920,6 +932,10 @@ try
         
         if SaveMovie==1
             Screen('FinalizeMovie', movie);
+        end
+        if SaveAudio==1
+            audiowrite(['Subj_',num2str(Subj),'_Blk_',num2str(Block_Num),'_',Condition_string,...
+            '_test_Levels.wav'], getaudiodata(Voice), Fs)
         end
         
         if Eye_tracking
