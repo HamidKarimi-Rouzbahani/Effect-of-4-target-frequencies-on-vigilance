@@ -1,6 +1,6 @@
 function TestVigLevels(Subj)
-Screen('Preference', 'SkipSyncTests',1);
-% developed by Hamid Karimi-Rouzbahani on 8/March/2022
+% Screen('Preference', 'SkipSyncTests',1);
+% developed by Hamid Karimi-Rouzbahani on 23/March/2022
 commandwindow;
 rng('default')
 if ~IsOctave
@@ -33,7 +33,7 @@ non_target_time_gap_constant=0.2494; % time between non-target dots
 
 % saving vidoe and audio
 SaveMovie=0; % whether to save the screen as a movie (1) or not (0)
-SaveAudio=1; % whether to save audio file during each block (1) or not (0)
+SaveAudio=0; % whether to save audio file during each block (1) or not (0)
 Fs=44100; % sound sampling freq
 Audio_quality=16; % 8, 16, or 24
 Mono_Stereo=2;  % mono=1; sterio =2
