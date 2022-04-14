@@ -1,6 +1,11 @@
 function TestVigLevels(Subj)
 % Screen('Preference', 'SkipSyncTests',1);
+
 % developed by Hamid Karimi-Rouzbahani on 23/March/2022
+
+% modified by Hamid Karimi-Rouzbahani on 14/April/2022: showing break
+% instructions after each conditions's blocks
+
 commandwindow;
 rng('default')
 if ~IsOctave
@@ -245,24 +250,24 @@ try
         if Cued_color_in_block(Subj,Block_Num)==1
             target_color='RED';
             block_target_color=1;
-            if Block_Num~=(Blocks_per_condition)+1
-                message = ['\n\n\n\n\n ---  Respond to ',target_color, ' dots  ---\n\n\n\n\n Press the button to start !!! \n\n\n\n\n'];
-                DrawFormattedText(wpoint, message,'center','center',first_dot_colour);
-            else
+            if Block_Num>1 && mod(Block_Num-1,Blocks_per_condition)==0
                 message = ['\n\n Please take a break before the next block !!!!'];
                 DrawFormattedText(wpoint, message,'center','center',[255 255 255]);
+                message = ['\n\n\n\n\n ---  Respond to ',target_color, ' dots  ---\n\n\n\n\n Press the button to start !!! \n\n\n\n\n'];
+                DrawFormattedText(wpoint, message,'center','center',first_dot_colour);
+            else                
                 message = ['\n\n\n\n\n ---  Respond to ',target_color, ' dots  ---\n\n\n\n\n Press the button to start !!! \n\n\n\n\n'];
                 DrawFormattedText(wpoint, message,'center','center',first_dot_colour);
             end
         else
             target_color='BLUE';
             block_target_color=0;
-            if Block_Num~=(Blocks_per_condition)+1
+            if Block_Num>1 && mod(Block_Num-1,Blocks_per_condition)==0
+                message = ['\n\n Please take a break before the next block !!!!'];
+                DrawFormattedText(wpoint, message,'center','center',[255 255 255]);
                 message = ['\n\n\n\n\n ---  Respond to ',target_color, ' dots  ---\n\n\n\n\n Press the button to start !!! \n\n\n\n\n'];
                 DrawFormattedText(wpoint, message,'center','center',second_dot_colour);
             else
-                message = ['\n\n Please take a break before the next block !!!!'];
-                DrawFormattedText(wpoint, message,'center','center',[255 255 255]);
                 message = ['\n\n\n\n\n ---  Respond to ',target_color, ' dots  ---\n\n\n\n\n Press the button to start !!! \n\n\n\n\n'];
                 DrawFormattedText(wpoint, message,'center','center',second_dot_colour);
             end
